@@ -9,6 +9,12 @@ body {
   background-color: #f9f9f9;
 }
 
+.wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 main {
   text-align: center;
 }
