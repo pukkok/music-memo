@@ -1,11 +1,8 @@
-import { useState } from 'react'
 import { tunes, defaultShorcut } from '../constants/pianoItems'
 import './styles/piano.css'
 import { useEffect } from 'react'
 
-const Piano = () => {
-
-  const [pressed, setPressed] = useState([])
+const Piano = ({pressed, setPressed}) => {
 
   const noteClick = () => {
     console.log('노트 클릭')
@@ -13,12 +10,14 @@ const Piano = () => {
 
   const noteKeyDown = (e) => {
     const pressedNote = defaultShorcut[e.key.toUpperCase()]
-    console.log('노트 키다운')
-    setPressed(prev => [...prev, pressedNote])
+    // console.log('노트 키다운')
+    setPressed(prev => {
+      return prev.includes(pressedNote) ? prev : [...prev, pressedNote]
+    })
   }
   const noteKeyUp = (e) => {
     const pressedNote = defaultShorcut[e.key.toUpperCase()]
-    console.log('노트 키업')
+    // console.log('노트 키업')
     setPressed(prev => prev = prev.filter(key => key !== pressedNote))
   }
 
