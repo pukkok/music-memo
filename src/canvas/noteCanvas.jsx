@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-const NoteCanvas = () => {
+const NoteCanvas = ({pressed}) => {
   const canvasRef = useRef()
   
   useEffect(() => {
@@ -13,7 +13,7 @@ const NoteCanvas = () => {
     ctx.fillStyle = "pink"
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.strokeRect(0, 0, canvas.width, canvas.height)
-  }, [])
+  }, [pressed])
 
   return <canvas ref={canvasRef}></canvas>
 }
