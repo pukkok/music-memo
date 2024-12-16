@@ -8,14 +8,17 @@ body {
   height: 100vh;
   background-color: #f9f9f9;
 }
-
-.wrapper {
-  max-width: 1240px;
-  margin: 0 auto;
-  text-align: center;
+#app{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-main {
+.wrapper {
+  border: solid 1px red;
+  max-width: 1240px;
+  height: 100vh;
+  margin: 0 auto;
   text-align: center;
 }
 
