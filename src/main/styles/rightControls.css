@@ -1,0 +1,13 @@
+.right-controls{
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.right-controls button{
+  font-size: 50px;
+  display: block;
+}

@@ -1,19 +1,19 @@
 /* 노트 */
 .notes{
-  margin-top: auto;
+  /* margin-top: auto; */
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .notes button {
-  max-width: 50px;
+  max-width: 60px;
   width: 10%;
-  height: 200px;
+  height: 220px;
   margin: 1px;
   border: 1px solid #000;
   background-color: #fff;
-  color: #000;
+  color: #111;
   text-align: center;
   z-index: 1;
   border-radius: 0 0 5px 5px;
@@ -33,16 +33,16 @@
 .notes button.sharp {
   max-width: 30px;
   width: 8%;
-  height: 120px;
+  height: 130px;
   margin: 0 -15px;
-  background-color: #000;
+  background-color: #444;
   color: #fff;
   z-index: 2;
   box-shadow: 0 3px #444;
 }
 
 .notes button.sharp.active, .notes button.sharp:active{
-  box-shadow: 0 2px #222;
+  box-shadow: 0 2px #333;
   transform: translateY(2px);
   background-color: violet;
 }

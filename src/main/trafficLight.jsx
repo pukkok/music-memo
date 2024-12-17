@@ -8,9 +8,11 @@ const TrafficLight = ({memo, pinsetIndex}) => {
   }, [])
 
   return (
-    <div className="traffic-light">
-      <button onClick={() => soundManager.stopSequence()}></button>
-      <button onClick={() => soundManager.playSequence(memo, pinsetIndex)}></button>
+    <div className="traffic-light-wrapper">
+      <div className="traffic-light">
+        <button onClick={() => soundManager.stopSequence()}></button>
+        <button onClick={() => soundManager.playSequence(memo, pinsetIndex)}></button>
+      </div>
     </div>
   )
 }

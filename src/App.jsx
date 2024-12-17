@@ -2,6 +2,7 @@ import Container from './component/container'
 import NoteCanvas from './canvas/noteCanvas'
 import { useState } from 'react'
 import Main from './main/main'
+import Header from './header/header'
 
 function App() {
   const [pressed, setPressed] = useState([])
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <Container>
+      <Header />
       <NoteCanvas memo={memo} onPinsetChange={setPinsetIndex} />
       <Main 
         pressed={pressed} 

@@ -13,7 +13,7 @@ const NoteCanvas = ({ memo }) => {
   // TODO : 처음 화면을 불러올때 화면 비율에 맞춰 노트 줄 수를 결정한다.
   useEffect(() => {
     const updateLines = () => {
-      const CANVAS_HEIGHT = window.innerHeight - 300
+      const CANVAS_HEIGHT = window.innerHeight - 400
       const calculatedLines = Math.floor(CANVAS_HEIGHT / NOTEBOOK_HEIGHT)
       setLines(calculatedLines > 0 ? calculatedLines : 5)
     }
@@ -27,7 +27,7 @@ const NoteCanvas = ({ memo }) => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
-    const CANVAS_WIDTH = 1240
+    const CANVAS_WIDTH = window.innerWidth > 1000 ? 1000 : window.innerWidth
     const CANVAS_HEIGHT = lines * NOTEBOOK_HEIGHT
 
     canvas.width = CANVAS_WIDTH
@@ -56,7 +56,7 @@ const NoteCanvas = ({ memo }) => {
   return (
     <div>
       <canvas ref={canvasRef}></canvas>
-      <div style={{ textAlign: 'center', marginTop: '10px' }}>
+      <div style={{ textAlign: 'center', marginTop: '5px' }}>
         <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} style={{ marginRight: '10px' }}>
           앞장
         </button>

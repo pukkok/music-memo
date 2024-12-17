@@ -1,0 +1,6 @@
+.left-controls{
+  width: 350px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

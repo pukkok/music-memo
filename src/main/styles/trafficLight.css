@@ -1,0 +1,51 @@
+.traffic-light-wrapper{
+  height: 100%;
+}
+
+.traffic-light{
+  border-radius: 8px;
+  --black-pukkok : #555;
+  background-color: var(--black-pukkok);
+  width: 60px;
+  height: 110px;
+  padding: 10px;
+  position: relative;
+}
+
+.traffic-light::before{
+  content: "";
+  display: block;
+  width: 16px;
+  height: 40px;
+
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background-color: var(--black-pukkok);
+}
+
+.traffic-light::after{
+  content: "";
+  position: absolute;
+  top: calc(100% + 30px);
+  width: 30px;
+  height: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--black-pukkok);
+  border-radius: 8px;
+}
+
+.traffic-light button{
+  width: 40px;
+  height: 40px;
+  background-color: #f33939;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.traffic-light button:nth-child(2){
+  background-color: #66CC66;
+}
