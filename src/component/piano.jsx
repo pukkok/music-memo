@@ -3,12 +3,10 @@ import './styles/piano.css'
 import { useEffect, useState } from 'react'
 import soundManager from '../utils/soundManager'
 
-const VALID_DURATIONS = [0.25, 0.5, 1, 1.5, 2, 3, 4]
-
 const getValidDuration = (duration) => {
-  const seconds = duration / 1000
-  const validDuration = VALID_DURATIONS.find((time) => seconds <= time) || 4
-  return validDuration * 1000
+  const VALID_DURATIONS = [0.2, 0.4, 0.8, 1.2, 1.6, 2.4, 3.2]
+  const seconds = duration / 1000 > 3.2 ? 3200 : duration + 100
+  return seconds
 }
 
 const Piano = ({ pressed, setPressed, setMemo }) => {
