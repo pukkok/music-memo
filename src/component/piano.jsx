@@ -5,7 +5,7 @@ import soundManager from '../utils/soundManager'
 
 const getValidDuration = (duration) => {
   const VALID_DURATIONS = [0.2, 0.4, 0.8, 1.2, 1.6, 2.4, 3.2]
-  const seconds = duration / 1000 > 3.2 ? 3200 : duration + 100
+  const seconds = duration / 1000 > 3.2 ? 3200 : duration + 50
   return seconds
 }
 
