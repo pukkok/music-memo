@@ -6,22 +6,24 @@ import NoteCanvas from './canvas/noteCanvas'
 import { useState } from 'react'
 
 function App() {
-  const [pressed, setPressed] = useState([]) // 현재 누른 키들
-  const [memo, setMemo] = useState([]) // 메모 데이터
+  const [pressed, setPressed] = useState([])
+  const [memo, setMemo] = useState([])
+  const [pinsetIndex, setPinsetIndex] = useState(0)
 
-  // 메모 초기화 함수
   const handleReset = () => {
     setMemo([])
+    setPinsetIndex(0)
   }
+
   const handleDelete = () => {
-    setMemo(prev => prev.filter((_, idx) => idx !== prev.length - 1))
+    setMemo((prev) => prev.filter((_, idx) => idx !== prev.length - 1))
   }
 
   return (
     <Container>
-      <NoteCanvas memo={memo} />
+      <NoteCanvas memo={memo} onPinsetChange={setPinsetIndex} />
       <Piano pressed={pressed} setPressed={setPressed} setMemo={setMemo} />
-      <Controls memo={memo} onReset={handleReset} onDelete={handleDelete}/>
+      <Controls memo={memo} onReset={handleReset} onDelete={handleDelete} pinsetIndex={pinsetIndex} />
     </Container>
   )
 }
