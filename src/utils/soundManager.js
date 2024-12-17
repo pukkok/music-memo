@@ -25,20 +25,21 @@ class SoundManager {
     }
   }
 
-  async playSequence(notes) {
-    this.shouldStop = false // 정지 플래그 초기화
-
-    for (const { note, duration } of notes) {
-      if (this.shouldStop) break // 정지 버튼이 눌리면 중단
+  async playSequence(notes, startIndex = 0) {
+    this.stopSequence() // 기존 재생 중단
+    this.shouldStop = false // 중단 플래그 초기화
+  
+    for (let i = startIndex; i < notes.length; i++) {
+      if (this.shouldStop) break // 정지 플래그 확인
+      const { note, duration } = notes[i]
       this.playNote(note)
-
+  
       await new Promise((resolve) => {
         const timeout = setTimeout(() => {
           this.stopNote(note)
           resolve()
         }, duration)
-
-        // 정지 요청 시 타이머 중단
+  
         if (this.shouldStop) {
           clearTimeout(timeout)
           this.stopNote(note)
@@ -46,7 +47,7 @@ class SoundManager {
         }
       })
     }
-  }
+  }  
 
   stopSequence() {
     this.shouldStop = true // 재생 중단 플래그 활성화
