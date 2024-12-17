@@ -10,6 +10,7 @@ const NoteCanvas = ({ memo }) => {
   const [totalPages, setTotalPages] = useState(1)
   const [lines, setLines] = useState(5)
 
+  // TODO : 처음 화면을 불러올때 화면 비율에 맞춰 노트 줄 수를 결정한다.
   useEffect(() => {
     const updateLines = () => {
       const CANVAS_HEIGHT = window.innerHeight - 300
@@ -32,19 +33,25 @@ const NoteCanvas = ({ memo }) => {
     canvas.width = CANVAS_WIDTH
     canvas.height = CANVAS_HEIGHT
 
-    // 캔버스 초기화
+    // * 캔버스 초기화
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-    // 공책 줄 그리기
+    // * 공책 줄 그리기
     drawNotebookLines(ctx, lines, CANVAS_WIDTH)
 
-    // 메모 및 페이지 계산
+    // * 메모 및 페이지 계산
     const { currentPageMemo, totalPages } = calculatePageMemo(memo, currentPage, CANVAS_HEIGHT, CANVAS_WIDTH)
     setTotalPages(totalPages)
 
-    // 메모 그리기
+    // * 메모 그리기(계이름)
     drawNotes(ctx, currentPageMemo)
   }, [memo, currentPage, lines])
+
+  // TODO : 토탈페이지가 늘어난다 = 다음페이지가 생겼다.
+  // * 토탈페이지가 증가하면 현재페이지를 다음페이지로 이동한다.
+  useEffect(() => { 
+    setCurrentPage(totalPages-1)
+  }, [totalPages])
 
   return (
     <div>
