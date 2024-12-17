@@ -5,32 +5,59 @@ const noteColors = [
   '#ff9999', '#ffcc99', '#ffff99', '#ccff99', '#99ffcc', '#99ccff', '#cc99ff', '#f9b7ff',
 ]
 
+const NOTEBOOK_HEIGHT = 100 // 공책 한 줄의 높이
+const RECT_HEIGHT = 60 // 직사각형 높이
+const LINE_PADDING = 20 // 세로 중앙정렬 기준
+
 const NoteCanvas = ({ memo }) => {
   const canvasRef = useRef()
 
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
-    canvas.width = 1240
-    canvas.height = 800
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height) // 캔버스 초기화
+    const CANVAS_WIDTH = 1240
+    const CANVAS_HEIGHT = 800
+    const LINE_WIDTH = CANVAS_WIDTH // 공책 가로 길이
+
+    canvas.width = CANVAS_WIDTH
+    canvas.height = CANVAS_HEIGHT
+
+    // 캔버스 초기화
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
     ctx.fillStyle = 'white'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-    let xOffset = 0 // 누적된 X 좌표
+    let xOffset = 0 // X 위치 (누적된 직사각형 너비)
+    let yOffset = 0 // Y 위치 (줄 위치)
 
     memo.forEach(({ note, duration }) => {
       const color = noteColors[tunes.indexOf(note) % noteColors.length]
       const label = `${koreanNames[tunes.indexOf(note)]}4`
-      const width = (duration / 1000) * 100 // 1초 = 100px
+      const width = (duration / 1000) * 100 // 직사각형 너비 (1초 = 100px)
 
+      // 다음 줄로 넘어가기
+      if (xOffset + width > LINE_WIDTH) {
+        xOffset = 0 // X 위치 초기화
+        yOffset += NOTEBOOK_HEIGHT // 다음 줄로 이동
+      }
+
+      // 공책 테두리 그리기
+      ctx.strokeStyle = 'black'
+      ctx.lineWidth = 2
+      ctx.strokeRect(0, yOffset, LINE_WIDTH, NOTEBOOK_HEIGHT)
+
+      // 직사각형 그리기
       ctx.fillStyle = color
-      ctx.fillRect(xOffset, 50, width, 50)
-      ctx.fillStyle = 'black'
-      ctx.fillText(label, xOffset + 5, 65)
+      ctx.fillRect(xOffset, yOffset + LINE_PADDING, width, RECT_HEIGHT)
 
-      xOffset += width // 다음 노트의 시작 X 위치
+      // 텍스트 그리기
+      ctx.fillStyle = 'black'
+      ctx.fontStyle = "20px Arial"
+      ctx.fillText(label, xOffset + 5, yOffset + LINE_PADDING + RECT_HEIGHT / 2 + 5)
+
+      // X 위치 갱신
+      xOffset += width
     })
   }, [memo])
 
