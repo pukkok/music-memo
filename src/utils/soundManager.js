@@ -5,7 +5,7 @@ class SoundManager {
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
     this.player = null
     this.activeNotes = {}
-    this.playingSequence = null
+    this.shouldStop = false
   }
 
   async loadInstrument(instrument = 'acoustic_grand_piano') {
@@ -25,33 +25,32 @@ class SoundManager {
     }
   }
 
-  playSequence(notes) {
-    this.stopSequence() // 기존 재생 중단
-  
-    if (!Array.isArray(notes) || notes.length === 0) {
-      console.warn('playSequence expects a non-empty array')
-      return
-    }
-  
-    this.playingSequence = notes.reduce((promise, { note, duration }) => {
-      return promise.then(() => {
-        return new Promise((resolve) => {
-          this.playNote(note)
-          setTimeout(() => { 
-            this.stopNote(note)
-            resolve()
-          }, duration)
-        })
+  async playSequence(notes) {
+    this.shouldStop = false // 정지 플래그 초기화
+
+    for (const { note, duration } of notes) {
+      if (this.shouldStop) break // 정지 버튼이 눌리면 중단
+      this.playNote(note)
+
+      await new Promise((resolve) => {
+        const timeout = setTimeout(() => {
+          this.stopNote(note)
+          resolve()
+        }, duration)
+
+        // 정지 요청 시 타이머 중단
+        if (this.shouldStop) {
+          clearTimeout(timeout)
+          this.stopNote(note)
+          resolve()
+        }
       })
-    }, Promise.resolve())
+    }
   }
-  
 
   stopSequence() {
-    if (this.playingSequence) {
-      this.playingSequence = null
-      Object.keys(this.activeNotes).forEach((note) => this.stopNote(note))
-    }
+    this.shouldStop = true // 재생 중단 플래그 활성화
+    Object.keys(this.activeNotes).forEach((note) => this.stopNote(note)) // 모든 재생 중인 노트 중단
   }
 }
 
