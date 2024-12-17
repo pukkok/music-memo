@@ -8,6 +8,7 @@ const noteColors = [
 const NOTEBOOK_HEIGHT = 100 // 공책 한 줄의 높이
 const RECT_HEIGHT = 60 // 직사각형 높이
 const LINE_PADDING = 20 // 세로 중앙정렬 기준
+const NOTE_SPACING = 5 // 노트와 노트 사이 간격
 
 const NoteCanvas = ({ memo }) => {
   const canvasRef = useRef()
@@ -37,7 +38,7 @@ const NoteCanvas = ({ memo }) => {
       const width = (duration / 1000) * 100 // 직사각형 너비 (1초 = 100px)
 
       // 다음 줄로 넘어가기
-      if (xOffset + width > LINE_WIDTH) {
+      if (xOffset + width + NOTE_SPACING > LINE_WIDTH) {
         xOffset = 0 // X 위치 초기화
         yOffset += NOTEBOOK_HEIGHT // 다음 줄로 이동
       }
@@ -53,11 +54,11 @@ const NoteCanvas = ({ memo }) => {
 
       // 텍스트 그리기
       ctx.fillStyle = 'black'
-      ctx.fontStyle = "20px Arial"
+      ctx.font = '16px Arial'
       ctx.fillText(label, xOffset + 5, yOffset + LINE_PADDING + RECT_HEIGHT / 2 + 5)
 
-      // X 위치 갱신
-      xOffset += width
+      // X 위치 갱신 (간격 추가)
+      xOffset += width + NOTE_SPACING
     })
   }, [memo])
 
