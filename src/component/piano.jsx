@@ -2,6 +2,14 @@ import { tunes, defaultShorcut } from '../constants/pianoItems'
 import './styles/piano.css'
 import { useEffect, useState } from 'react'
 
+const VALID_DURATIONS = [0.25, 0.5, 1, 1.5, 2, 3, 4] // 가능한 지속시간 리스트
+
+const getValidDuration = (duration) => {
+  const seconds = duration / 1000 // ms를 초 단위로 변환
+  const validDuration = VALID_DURATIONS.find((time) => seconds <= time) || 4 // 올림 처리
+  return validDuration * 1000 // ms 단위로 반환
+}
+
 const Piano = ({ pressed, setPressed, setMemo }) => {
   const [startTime, setStartTime] = useState({}) // 시작 시간 저장
 
@@ -16,10 +24,11 @@ const Piano = ({ pressed, setPressed, setMemo }) => {
   const noteKeyUp = (e) => {
     const pressedNote = defaultShorcut[e.key.toUpperCase()]
     if (pressedNote && pressed.includes(pressedNote)) {
-      const duration = Date.now() - startTime[pressedNote] // 지속 시간 계산
+      const rawDuration = Date.now() - startTime[pressedNote] // 지속 시간 계산
+      const validDuration = getValidDuration(rawDuration) // 올림 처리 및 최대값 제한
       setMemo((prev) => [
         ...prev,
-        { note: pressedNote, duration: Math.round(duration / 250) * 250 }, // 반올림된 duration
+        { note: pressedNote, duration: validDuration }, // 유효한 지속시간 저장
       ])
       setPressed((prev) => prev.filter((key) => key !== pressedNote)) // pressed에서 제거
     }
