@@ -3,6 +3,7 @@ import './App.css'
 import Container from './component/container'
 import NoteCanvas from './canvas/noteCanvas'
 import { useState } from 'react'
+import Controls from './component/controls'
 
 function App() {
   const [pressed, setPressed] = useState([]) // 현재 누른 키들
@@ -12,6 +13,7 @@ function App() {
     <Container>
       <NoteCanvas memo={memo} />
       <Piano pressed={pressed} setPressed={setPressed} setMemo={setMemo} />
+      <Controls memo={memo}/>
     </Container>
   )
 }
