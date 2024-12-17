@@ -1,9 +1,7 @@
-import Piano from './component/piano'
-import Controls from './component/controls'
-import './App.css'
 import Container from './component/container'
 import NoteCanvas from './canvas/noteCanvas'
 import { useState } from 'react'
+import Main from './main/main'
 
 function App() {
   const [pressed, setPressed] = useState([])
@@ -22,8 +20,15 @@ function App() {
   return (
     <Container>
       <NoteCanvas memo={memo} onPinsetChange={setPinsetIndex} />
-      <Piano pressed={pressed} setPressed={setPressed} setMemo={setMemo} />
-      <Controls memo={memo} onReset={handleReset} onDelete={handleDelete} pinsetIndex={pinsetIndex} />
+      <Main 
+        pressed={pressed} 
+        setPressed={setPressed} 
+        memo={memo}
+        setMemo={setMemo} 
+        pinsetIndex={pinsetIndex}
+        onReset={handleReset}
+        onDelete={handleDelete}
+      />
     </Container>
   )
 }
