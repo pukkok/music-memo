@@ -14,10 +14,6 @@ const getValidDuration = (duration) => {
 const Piano = ({ pressed, setPressed, setMemo }) => {
   const [startTime, setStartTime] = useState({})
 
-  useEffect(() => {
-    soundManager.loadInstrument()
-  }, [])
-
   const noteKeyDown = (e) => {
     const pressedNote = defaultShorcut[e.key.toUpperCase()]
     if (pressedNote && !pressed.includes(pressedNote)) {
