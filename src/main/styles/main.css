@@ -1,7 +1,8 @@
 main{
   margin-top: auto;
   display: flex;
-  border: solid 1px red;
+  border: solid 1px #333;
+  background-color: #efefef;
   padding: 5px;
   align-items: center;
   gap: 10px;

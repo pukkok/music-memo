@@ -27,7 +27,7 @@ const NoteCanvas = ({ memo }) => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
-    const CANVAS_WIDTH = window.innerWidth > 1000 ? 1000 : window.innerWidth
+    const CANVAS_WIDTH = window.innerWidth > 988 ? 988 : window.innerWidth
     const CANVAS_HEIGHT = lines * NOTEBOOK_HEIGHT
 
     canvas.width = CANVAS_WIDTH
@@ -58,13 +58,13 @@ const NoteCanvas = ({ memo }) => {
       <canvas ref={canvasRef}></canvas>
       <div style={{ textAlign: 'center', marginTop: '5px' }}>
         <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} style={{ marginRight: '10px' }}>
-          앞장
+          ◀️
         </button>
         <span>
           {currentPage + 1} / {totalPages}
         </span>
         <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))} style={{ marginLeft: '10px' }}>
-          뒷장
+        ▶️
         </button>
       </div>
     </div>
