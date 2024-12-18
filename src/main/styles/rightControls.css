@@ -11,3 +11,8 @@
   font-size: 50px;
   display: block;
 }
+
+.right-controls button img{
+  width: 40px;
+  height: 40px;
+}
