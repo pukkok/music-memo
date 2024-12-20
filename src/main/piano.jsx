@@ -128,11 +128,26 @@ const Piano = ({ pressed, setPressed, setMemo }) => {
         <button
           key={idx}
           className={`${pressed.includes(note) ? 'active' : ""} ${note.includes('#') ? 'sharp' : ""}`}
-          onMouseDown={() => handleMouseDown(note)}
-          onMouseUp={() => handleMouseUp(note)}
-          onMouseLeave={() => handleMouseLeave(note)}
-          onTouchStart={() => handleTouchStart(note)}
-          onTouchEnd={() => handleTouchEnd(note)}
+          onMouseDown={(e) => {
+            e.preventDefault()
+            handleMouseDown(note)
+          }}
+          onMouseUp={(e) => {
+            e.preventDefault()
+            handleMouseUp(note)
+          }}
+          onMouseLeave={(e) => {
+            e.preventDefault()
+            handleMouseLeave(note)
+          }}
+          onTouchStart={(e) => {
+            e.preventDefault()
+            handleTouchStart(note)
+          }}
+          onTouchEnd={(e) => {
+            e.preventDefault()
+            handleTouchEnd(note)
+          }}
         ></button>
       ))}
     </div>
